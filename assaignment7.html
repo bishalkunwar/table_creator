@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Table Creator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="main-container">
+        <!-- Table creator Header -->
+        <h1 style="font-size: 28px; color: green;">Final test lab</h1>
+
+        <!-- label and Input for the rows number -->
+        <div>
+            <label for="numRows">Number of rows:</label>
+            <input type="text" id="numRows" />
+        </div>
+
+        <!-- label and Input for the columns number  -->
+        <div>
+            <label for="numCols">Number of cols:</label>
+            <input type="text" id="numCols" />
+        </div>
+
+        <!-- Button that generates the table -->
+        <button id="generateBtn" onclick="tableGenerator()">Generate Table</button>
+
+        <!-- Container for the generated table -->
+        <div id="tableContainer"></div>
+
+        <!-- Button that adds a column to the table -->
+        <button id="addColumnBtn" onclick="addColumn()">Add Column</button>
+
+        <!-- Button that adds a row to the table -->
+        <button id="addRowBtn" onclick="addRow()">Add Row</button>
+    </div>
+
+    <script language="javascript">
+        // Function to generate the table based on user input
+        function tableGenerator() {
+            var numRows = document.getElementById("numRows").value;
+            var numCols = document.getElementById("numCols").value;
+
+            var tableHtml = "<table border='1'>";
+            for (var i = 0; i < numRows; i++) {
+                tableHtml += "<tr>";
+                for (var j = 0; j < numCols; j++) {
+                    tableHtml += "<td>Cell</td>";
+                }
+                tableHtml += "</tr>";
+            }
+            tableHtml += "</table>";
+
+            document.getElementById("tableContainer").innerHTML = tableHtml;
+
+            // Create and append the "Add Column" button dynamically
+            var addColumnButton = document.createElement("button");
+            addColumnButton.innerHTML = "Add Column";
+            addColumnButton.onclick = addColumn;
+            document.getElementById("container").appendChild(addColumnButton);
+
+            // Create and append the "Add Row" button dynamically
+            var addRowButton = document.createElement("button");
+            addRowButton.innerHTML = "Add Row";
+            addRowButton.onclick = addRow;
+            document.getElementById("container").appendChild(addRowButton);
+        }
+
+        // Function to add a column to the table
+        function addColumn() {
+            var table = document.querySelector("table");
+            var rows = table.querySelectorAll("tr");
+
+            for (var i = 0; i < rows.length; i++) {
+                var cell = document.createElement("td");
+                cell.innerHTML = "Cell";
+                rows[i].appendChild(cell);
+            }
+        }
+
+        // Function to add a row to the table
+        function addRow() {
+            var table = document.querySelector("table");
+            var numCols = table.querySelectorAll("tr")[0].childElementCount;
+
+            var newRow = document.createElement("tr");
+            for (var i = 0; i < numCols; i++) {
+                var cell = document.createElement("td");
+                cell.innerHTML = "Cell";
+                newRow.appendChild(cell);
+            }
+
+            table.appendChild(newRow);
+        }
+    </script>
+</body>
+
+</html>
